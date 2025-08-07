@@ -1,0 +1,10 @@
+{
+	"recommendations": [
+		"biomejs.biome",
+		"ms-vscode.vscode-typescript-next",
+		"ms-vscode.test-adapter-converter",
+		"formulahendry.auto-rename-tag",
+		"christian-kohler.path-intellisense",
+		"oven.bun-vscode"
+	]
+}

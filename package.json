@@ -1,0 +1,30 @@
+{
+	"dependencies": {},
+	"devDependencies": {
+		"@biomejs/biome": "^2.0.0-beta.6",
+		"@types/bun": "^1.2.19",
+		"typescript": "^5.8.3",
+		"zshy": "^0.2.5"
+	},
+	"files": [
+		"dist",
+		"LICENSE.md",
+		"package.json",
+		"README.md"
+	],
+	"license": "MIT",
+	"name": "kitto-form",
+	"private": false,
+	"scripts": {
+		"build": "zshy && biome check --write ./package.json",
+		"check:code": "biome check --changed --diagnostic-level=error",
+		"check:types": "tsc --noEmit"
+	},
+	"type": "module",
+	"version": "0.0.2",
+	"zshy": {
+		"exports": {
+			".": "./src/index.ts"
+		}
+	}
+}

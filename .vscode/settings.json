@@ -1,0 +1,44 @@
+{
+	"[typescript][typescriptreact][javascript][json][jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"editor.codeActionsOnSave": {
+		"quickfix.biome": "explicit",
+		"source.action.useSortedAttributes.biome": "explicit",
+		"source.action.useSortedKeys.biome": "explicit",
+		"source.action.useSortedProperties.biome": "explicit",
+		"source.fixAll.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
+	},
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnPaste": true,
+	"editor.formatOnSave": true,
+	"emmet.showExpandedAbbreviation": "never",
+	"files.associations": {
+		"*.test.ts": "typescript",
+		"*.test.tsx": "typescriptreact"
+	},
+	"files.exclude": {
+		"**/.blunt": true,
+		"**/coverage": true,
+		"**/dist": true,
+		"**/node_modules": true,
+		"**/out": true
+	},
+	"search.exclude": {
+		"**/.blunt": true,
+		"**/coverage": true,
+		"**/dist": true,
+		"**/node_modules": true,
+		"**/out": true
+	},
+	"testing.automaticallyOpenPeekView": "never",
+	"testing.automaticallyOpenTestResults": "neverOpen",
+	"testing.followRunningTest": false,
+	"testing.useNativeTesting": true,
+	"typescript.preferences.importModuleSpecifier": "shortest",
+	"typescript.suggest.autoImports": true,
+	"typescript.suggest.paths": false,
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.updateImportsOnFileMove.enabled": "always"
+}
