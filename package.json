@@ -1,6 +1,7 @@
 {
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.4",
+		"@changesets/cli": "^2.29.5",
 		"@types/bun": "^1.2.19",
 		"@types/jsdom": "^21.1.7",
 		"cspell": "^9.2.0",
@@ -39,12 +40,12 @@
 		"commit": "bun run scripts/commit.ts",
 		"docs:generate": "typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts --readme none --hideGenerator --hideBreadcrumbs",
 		"prepare": "husky",
-		"release": "bun run build && bun run publish",
+		"release": "bun run build && changeset version && changeset publish",
 		"test": "bun test"
 	},
 	"type": "module",
 	"types": "./dist/index.d.cts",
-	"version": "0.0.2",
+	"version": "0.0.1",
 	"zshy": {
 		"exports": {
 			".": "./src/index.ts"

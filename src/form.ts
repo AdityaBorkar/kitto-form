@@ -89,9 +89,15 @@ class FormBuilder<T> {
 
 	/** Enables repeating form sections based on field value */
 	repeat(): FormBuilder<T> {
-		if (!this.variable) return this;
+		if (!this.variable) {
+			return this;
+		}
 
 		this.render = (options: RenderOptions) => {
+			if (!this.variable) {
+				return;
+			}
+
 			const updateUi = () => {
 				if (!this.variable) {
 					return;
@@ -103,40 +109,43 @@ class FormBuilder<T> {
 				const slot = this.formElement.querySelector(
 					`[kitto-slot="${options.slot}"]`,
 				);
-				if (!slot) return;
+				if (!slot) {
+					return;
+				}
 
-				if (shouldShow && typeof count === "number" && count > 0) {
-					slot.innerHTML = "";
-					for (let i = 0; i < count; i++) {
-						options.show.forEach((componentId) => {
-							if (!componentId.startsWith("@")) return;
-							const template = this.formElement.querySelector(
-								`[kitto-component="${componentId}"]`,
-							) as HTMLTemplateElement;
-							if (template && template.tagName === "TEMPLATE") {
-								const clone = template.content.cloneNode(
-									true,
-								) as DocumentFragment;
-								const dynamicName = options.name.replace("$n", String(i + 1));
-								clone.querySelectorAll("[name]").forEach((el) => {
-									const nameAttr = (el as HTMLElement).getAttribute("name");
-									if (nameAttr) {
-										(el as HTMLElement).setAttribute(
-											"name",
-											nameAttr.replace("$parent", dynamicName),
-										);
-									}
-								});
-								slot.appendChild(clone);
+				if (!(shouldShow && typeof count === "number" && count > 0)) {
+					return;
+				}
+				slot.innerHTML = "";
+				for (let n = 1; n <= count; n++) {
+					for (const show of options.show) {
+						const isTemplate = show.startsWith("@");
+						const selector = isTemplate ? `[kitto-component="${show}"]` : show;
+						const element = this.formElement.querySelector(selector);
+						if (!element) {
+							throw new Error(`Selector not found: ${selector}`);
+						}
+						if (element.tagName !== "TEMPLATE") {
+							slot.appendChild(element);
+							continue;
+						}
+
+						// @ts-expect-error
+						const clone = element.content.cloneNode(true);
+						const nameSuffix = options.name.replace("$n", String(n));
+						const inputs = clone.querySelectorAll("[name]");
+						for (const element of inputs) {
+							const nameAttr = element.getAttribute("name");
+							if (nameAttr) {
+								element.setAttribute("name", nameAttr.replace("x", nameSuffix));
 							}
-						});
+						}
+						slot.appendChild(clone);
 					}
-				} else {
-					slot.innerHTML = "";
 				}
 			};
 
-			this.variable!.onChange(updateUi);
+			this.variable.onChange(updateUi);
 			updateUi();
 		};
 		return this;
@@ -159,10 +168,16 @@ export class KittoForm {
 	/** Creates a FormBuilder for a field with the given name */
 	field<T = any>(name: string): FormBuilder<T> {
 		const selector = `[name="${name}"]`;
-		const element = this.form.querySelector(selector);
-		if (!element) {
+		const elements = Array.from(
+			this.form.querySelectorAll(selector),
+		) as HTMLInputElement[];
+		if (elements.length === 0) {
 			throw new Error(`Field element not found: ${selector}`);
 		}
+		if (elements.length > 1) {
+			throw new Error(`Multiple field elements found: ${selector}`);
+		}
+		const element = elements[0];
 
 		const type = element.getAttribute("type");
 		let modifier: (value: string) => any = (value) => value;

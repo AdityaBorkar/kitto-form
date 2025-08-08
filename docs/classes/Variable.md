@@ -4,7 +4,7 @@
 
 # Class: Variable\<T\>
 
-Defined in: [variable.ts:13](https://github.com/AdityaBorkar/kitto-form/blob/22d98d5e6f85ccd55e4d9adb38a97acbb877f9bf/src/variable.ts#L13)
+Defined in: [variable.ts:13](https://github.com/AdityaBorkar/kitto-form/blob/8d9171e954dd0db9f50609b9dbbaed19a33a5320/src/variable.ts#L13)
 
 Reactive variable that binds to DOM elements with type-safe transformations
 
@@ -20,7 +20,7 @@ Reactive variable that binds to DOM elements with type-safe transformations
 
 > **new Variable**\<`T`\>(`selector`, `modifier?`): `Variable`\<`T`\>
 
-Defined in: [variable.ts:19](https://github.com/AdityaBorkar/kitto-form/blob/22d98d5e6f85ccd55e4d9adb38a97acbb877f9bf/src/variable.ts#L19)
+Defined in: [variable.ts:19](https://github.com/AdityaBorkar/kitto-form/blob/8d9171e954dd0db9f50609b9dbbaed19a33a5320/src/variable.ts#L19)
 
 Creates a Variable bound to a DOM element
 
@@ -44,7 +44,7 @@ Creates a Variable bound to a DOM element
 
 > **element**: `Element`
 
-Defined in: [variable.ts:14](https://github.com/AdityaBorkar/kitto-form/blob/22d98d5e6f85ccd55e4d9adb38a97acbb877f9bf/src/variable.ts#L14)
+Defined in: [variable.ts:14](https://github.com/AdityaBorkar/kitto-form/blob/8d9171e954dd0db9f50609b9dbbaed19a33a5320/src/variable.ts#L14)
 
 ***
 
@@ -52,7 +52,7 @@ Defined in: [variable.ts:14](https://github.com/AdityaBorkar/kitto-form/blob/22d
 
 > **modifier**: `Modifier`\<`T`\>
 
-Defined in: [variable.ts:15](https://github.com/AdityaBorkar/kitto-form/blob/22d98d5e6f85ccd55e4d9adb38a97acbb877f9bf/src/variable.ts#L15)
+Defined in: [variable.ts:15](https://github.com/AdityaBorkar/kitto-form/blob/8d9171e954dd0db9f50609b9dbbaed19a33a5320/src/variable.ts#L15)
 
 ## Methods
 
@@ -60,7 +60,7 @@ Defined in: [variable.ts:15](https://github.com/AdityaBorkar/kitto-form/blob/22d
 
 > **get**(): `T`
 
-Defined in: [variable.ts:36](https://github.com/AdityaBorkar/kitto-form/blob/22d98d5e6f85ccd55e4d9adb38a97acbb877f9bf/src/variable.ts#L36)
+Defined in: [variable.ts:36](https://github.com/AdityaBorkar/kitto-form/blob/8d9171e954dd0db9f50609b9dbbaed19a33a5320/src/variable.ts#L36)
 
 Gets the current value from the bound element
 
@@ -74,7 +74,7 @@ Gets the current value from the bound element
 
 > **onChange**(`callback`): `void`
 
-Defined in: [variable.ts:65](https://github.com/AdityaBorkar/kitto-form/blob/22d98d5e6f85ccd55e4d9adb38a97acbb877f9bf/src/variable.ts#L65)
+Defined in: [variable.ts:65](https://github.com/AdityaBorkar/kitto-form/blob/8d9171e954dd0db9f50609b9dbbaed19a33a5320/src/variable.ts#L65)
 
 Registers a callback to be called when the variable value changes
 
@@ -94,7 +94,7 @@ Registers a callback to be called when the variable value changes
 
 > **set**(`value`): `void`
 
-Defined in: [variable.ts:42](https://github.com/AdityaBorkar/kitto-form/blob/22d98d5e6f85ccd55e4d9adb38a97acbb877f9bf/src/variable.ts#L42)
+Defined in: [variable.ts:42](https://github.com/AdityaBorkar/kitto-form/blob/8d9171e954dd0db9f50609b9dbbaed19a33a5320/src/variable.ts#L42)
 
 Sets the value of the bound element
 
@@ -114,7 +114,7 @@ Sets the value of the bound element
 
 > `static` **computed**\<`T`\>(`computeFn`, `dependencies`): `ComputedVariable`\<`T`\>
 
-Defined in: [variable.ts:49](https://github.com/AdityaBorkar/kitto-form/blob/22d98d5e6f85ccd55e4d9adb38a97acbb877f9bf/src/variable.ts#L49)
+Defined in: [variable.ts:49](https://github.com/AdityaBorkar/kitto-form/blob/8d9171e954dd0db9f50609b9dbbaed19a33a5320/src/variable.ts#L49)
 
 Creates a computed variable that derives its value from dependencies
 

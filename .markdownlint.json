@@ -1,0 +1,14 @@
+{
+	"config": {
+		"default": true,
+		"line-length": false
+	},
+	"globs": [
+		"**/*.md",
+		"!**/LICENSE.md",
+		"!**/CLAUDE.md",
+		"!**/node_modules/**/*",
+		"!**/dist/**/*",
+		"!**/.claude/**/*"
+	]
+}
