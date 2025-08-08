@@ -1,1 +1,57 @@
-# TODO: PR-CHECKS + PUBLISH TOGETHER
+name: Publish
+
+on: release
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      statuses: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: |
+          bun run check:code
+          bun run check:types
+          bun run check:md
+          bun run check:spell
+          bun test
+          bun run build
+
+  release:
+    runs-on: ubuntu-latest
+    needs: test-and-build
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+      - run: bun install --frozen-lockfile
+      - run: bun run version
+      - uses: changesets/action@v1
+        with:
+          publish: bun run release
+          title: 'chore: release packages'
+          commit: 'chore: release packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

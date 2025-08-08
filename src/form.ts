@@ -1,17 +1,20 @@
 import { Variable } from "./variable.js";
 
+/** Options for rendering form components */
 interface RenderOptions {
 	slot: string;
 	show: string[];
 	name: string;
 }
 
+/** Builder for form field rendering with fluent API */
 class FormBuilder<T> {
 	private formElement: Element;
 	private variable: Variable<T> | undefined;
 	private condition?: (value: T) => boolean;
 	private transformer?: (value: T) => T;
 
+	/** Creates a FormBuilder for a specific form element */
 	constructor(
 		formElement: Element,
 		variable: Variable<T> | undefined = undefined,
@@ -20,18 +23,23 @@ class FormBuilder<T> {
 		this.variable = variable;
 	}
 
+	/** Applies a transformation to the field value */
 	modify(modifier: (value: T) => T): FormBuilder<T> {
 		this.transformer = modifier;
 		return this;
 	}
 
+	/** Sets a condition for when the field should be shown */
 	if(predicate: (value: T) => boolean): FormBuilder<T> {
 		this.condition = predicate;
 		return this;
 	}
 
+	/** Renders form components based on field value */
 	render(options: RenderOptions): void {
-		if (!this.variable) return;
+		if (!this.variable) {
+			return;
+		}
 
 		const updateUi = () => {
 			const value = this.variable!.get();
@@ -43,16 +51,20 @@ class FormBuilder<T> {
 			const slot = this.formElement.querySelector(
 				`[kitto-slot="${options.slot}"]`,
 			);
-			if (!slot) return;
+			if (!slot) {
+				return;
+			}
 
 			if (shouldShow) {
 				slot.innerHTML = "";
 				options.show.forEach((componentId) => {
-					if (!componentId.startsWith('@')) return;
+					if (!componentId.startsWith("@")) {
+						return;
+					}
 					const template = this.formElement.querySelector(
 						`[kitto-component="${componentId}"]`,
 					) as HTMLTemplateElement;
-					if (template && template.tagName === 'TEMPLATE') {
+					if (template && template.tagName === "TEMPLATE") {
 						const clone = template.content.cloneNode(true) as DocumentFragment;
 						clone.querySelectorAll("[name]").forEach((el) => {
 							const nameAttr = (el as HTMLElement).getAttribute("name");
@@ -75,12 +87,16 @@ class FormBuilder<T> {
 		updateUi();
 	}
 
+	/** Enables repeating form sections based on field value */
 	repeat(): FormBuilder<T> {
 		if (!this.variable) return this;
 
 		this.render = (options: RenderOptions) => {
 			const updateUi = () => {
-				const value = this.variable!.get();
+				if (!this.variable) {
+					return;
+				}
+				const value = this.variable.get();
 				const count = this.transformer ? this.transformer(value) : value;
 				const shouldShow = !this.condition || this.condition(count);
 
@@ -93,11 +109,11 @@ class FormBuilder<T> {
 					slot.innerHTML = "";
 					for (let i = 0; i < count; i++) {
 						options.show.forEach((componentId) => {
-							if (!componentId.startsWith('@')) return;
+							if (!componentId.startsWith("@")) return;
 							const template = this.formElement.querySelector(
 								`[kitto-component="${componentId}"]`,
 							) as HTMLTemplateElement;
-							if (template && template.tagName === 'TEMPLATE') {
+							if (template && template.tagName === "TEMPLATE") {
 								const clone = template.content.cloneNode(
 									true,
 								) as DocumentFragment;
@@ -127,9 +143,11 @@ class FormBuilder<T> {
 	}
 }
 
+/** Dynamic form rendering system with reactive field binding */
 export class KittoForm {
 	private form: Element;
 
+	/** Creates a KittoForm bound to a DOM element */
 	constructor(selector: string) {
 		const element = document.querySelector(selector);
 		if (!element) {
@@ -138,6 +156,7 @@ export class KittoForm {
 		this.form = element;
 	}
 
+	/** Creates a FormBuilder for a field with the given name */
 	field<T = any>(name: string): FormBuilder<T> {
 		const selector = `[name="${name}"]`;
 		const element = this.form.querySelector(selector);

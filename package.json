@@ -1,10 +1,14 @@
 {
-	"dependencies": {},
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.4",
 		"@types/bun": "^1.2.19",
 		"@types/jsdom": "^21.1.7",
+		"cspell": "^9.2.0",
+		"husky": "^9.1.7",
 		"jsdom": "^26.1.0",
+		"markdownlint-cli2": "^0.18.1",
+		"typedoc": "^0.28.9",
+		"typedoc-plugin-markdown": "^4.8.0",
 		"typescript": "^5.9.2",
 		"zshy": "^0.3.5"
 	},
@@ -27,9 +31,15 @@
 	"name": "kitto-form",
 	"private": false,
 	"scripts": {
-		"build": "zshy && biome check --write ./package.json",
-		"check:code": "biome check --changed --diagnostic-level=error",
+		"build": "bun run docs:generate && zshy && biome check --write ./package.json",
+		"check:code": "biome check . --diagnostic-level=error",
+		"check:md": "markdownlint-cli2 --config=./.markdownlint.json",
+		"check:spell": "cspell --no-progress .",
 		"check:types": "tsc --noEmit",
+		"commit": "bun run scripts/commit.ts",
+		"docs:generate": "typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts --readme none --hideGenerator --hideBreadcrumbs",
+		"prepare": "husky",
+		"release": "bun run build && bun run publish",
 		"test": "bun test"
 	},
 	"type": "module",

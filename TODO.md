@@ -1,8 +1,6 @@
 # Kitto Form Library - Development TODO
 
-## Phase 0: Initial Setup
-
-data-kitto="@parent-details"
+<!-- data-kitto="@parent-details" -->
 <!-- TODO: Div: <div kitto-slot="parent-details-section"> -->
 <!-- TODO: Wrap in <template kitto-component="@parent-details"> -->
 
@@ -10,8 +8,12 @@ data-kitto="@parent-details"
 
 - [ ] Write .md files and docs
 - [ ] Auto-create REFERENCE.md from JSDOCs
-
+jsdoc2md
 // TODO: Prevent Form Flashing and Excessive Re-renders by only updating the changed elements
+
+### 🔍 Code Quality
+- [ ] Add code coverage reporting
+- [ ] Bundle size optimization (target: <10KB gzipped)
 
 ### 🐛 Error Handling & Debugging
 - [ ] Add comprehensive error messages with context
@@ -21,8 +23,6 @@ data-kitto="@parent-details"
 - [ ] Add development warnings for common mistakes
 - [ ] Create error recovery mechanisms
 
-## Phase 3: Documentation & Examples (Priority: MEDIUM)
-
 ### 📚 Documentation & Guides
 - [ ] Create comprehensive API documentation
 - [ ] Write step-by-step tutorial for junior developers
@@ -30,20 +30,6 @@ data-kitto="@parent-details"
 - [ ] Create migration guide from current API
 - [ ] Add troubleshooting guide and FAQ
 - [ ] Document best practices and patterns
-
-### 🎯 Example Applications
-- [ ] Create basic contact form example
-- [ ] Build multi-step registration form demo
-- [ ] Add dynamic survey/questionnaire example
-- [ ] Create e-commerce checkout form
-- [ ] Add form with file uploads and validation
-- [ ] Build complex conditional logic example
-
-### 📖 TypeScript Support
-- [ ] Add complete TypeScript definitions
-- [ ] Create type-safe form configuration interfaces
-- [ ] Add generic types for form data
-- [ ] Implement type inference for field definitions
 - [ ] Add JSDoc comments for better IDE support
 
 ## Phase 4: Advanced Features (Priority: MEDIUM)
@@ -56,19 +42,17 @@ data-kitto="@parent-details"
 - [ ] Implement form serialization/deserialization
 - [ ] Add form state persistence (localStorage/sessionStorage)
 
-
-
-### 🔍 Code Quality
-- [ ] Implement pre-commit hooks for quality checks
-- [ ] Add code coverage reporting
-- [ ] Create CI/CD pipeline for automated testing
-- [ ] Bundle size optimization (target: <10KB gzipped)
+### 🎯 Example Applications
+- [ ] Create basic contact form example
+- [ ] Build multi-step registration form demo
+- [ ] Add dynamic survey/questionnaire example
+- [ ] Create e-commerce checkout form
+- [ ] Add form with file uploads and validation
+- [ ] Build complex conditional logic example
 
 ### Technical Metrics
 - [ ] Runtime performance benchmarks
 - [ ] Form rendering speed with large datasets
-- [ ] Memory usage optimization
-- [ ] Browser compatibility testing
 
 ### ♿ Accessibility & UX
 - [ ] Add ARIA attributes for screen readers
