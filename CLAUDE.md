@@ -14,6 +14,8 @@ Kitto Form is a reactive form management library built in vanilla TypeScript. It
 - **Build**: `bun run build` - Builds the library using zshy bundler and runs Biome formatting
 - **Type Check**: `bun run check:types` - Runs TypeScript type checking without emitting files
 - **Code Quality**: `bun run check:code` - Runs Biome linting and formatting on changed files
+- **Test**: `bun test` - Runs all tests using Bun's built-in test runner
+- **Single Test**: `bun test <file>` - Run specific test file
 - **Lint & Format**: `biome check --write` - Auto-fix code style and imports
 
 ## Architecture
@@ -26,27 +28,29 @@ Kitto Form is a reactive form management library built in vanilla TypeScript. It
 - Modifier functions convert string values to desired types (number, boolean, etc.)
 
 **KittoForm Class** (`src/form.ts`):  
-- Manages dynamic form rendering based on component templates
-- Uses `kitto-id` attributes to identify reusable form sections
-- `render()` method accepts array of selectors and component objects with replacers
-- Components can be cloned and have their `name` attributes dynamically replaced
+- Fluent API with method chaining: `field().if().render()` or `field().modify().repeat().render()`
+- Uses `kitto-slot` attributes for render targets and `kitto-component` for templates
+- `render()` method accepts options: `{slot, show, name}` for component placement
+- Components clone templates and replace `$parent` placeholders with dynamic names
+- `repeat()` method enables dynamic repetition with `$n` index replacement
 
 **Integration Pattern** (`src/index.ts`):
-- Creates Variable instances bound to form inputs
-- Sets up reactive onChange handlers that trigger form re-rendering
-- Uses renderForm function to determine which components to show based on current state
+- Demonstrates usage with fluent API chaining for conditional and repeated rendering
+- Variables automatically trigger re-rendering via onChange callbacks
 
 ### Key Patterns
 
 - **Reactive State**: Variables automatically trigger UI updates via onChange callbacks
-- **Component Templates**: Form sections marked with `kitto-id` are stored and cloned as needed  
-- **Dynamic Naming**: Component inputs get their `name` attributes replaced with dynamic values (parent, child-1, etc.)
-- **Conditional Rendering**: Form sections appear/disappear based on reactive variable values
+- **Component Templates**: Form sections marked with `kitto-component="@name"` are cloned as needed  
+- **Dynamic Naming**: Component inputs get their `name` attributes replaced with dynamic values (`$parent` → parent, `$n` → 1, 2, 3...)
+- **Conditional Rendering**: Form sections appear/disappear based on reactive variable values and fluent API conditions
+- **Slot-based Rendering**: Components render into `kitto-slot` target elements
 
-## Build System
+## Build System & Testing
 
 - Uses **zshy** as the bundler with TypeScript source in `src/`
 - **Biome** for linting, formatting, and import organization
 - Exports configured in `zshy.exports` pointing to `src/index.ts`
 - Strict TypeScript configuration with ES2020 target
-- Import groups organized by type (Node/Bun, packages, aliases, relative paths)
+- **Testing**: Bun test runner with JSDOM for DOM simulation (`tests/setup.ts`)
+- Test files in `tests/` directory with `.test.ts` extension

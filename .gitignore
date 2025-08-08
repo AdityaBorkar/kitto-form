@@ -1,47 +1,9 @@
-# dependencies (bun install)
 node_modules
-
-# output
-out
 dist
-*.tgz
-
-# code coverage
-coverage
-*.lcov
-coverage-report.html
-coverage-report.txt
-coverage-report.json
-coverage-delta.json
-
-# logs
-logs
-_.log
-report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
-
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
-# caches
-.eslintcache
-.cache
 *.tsbuildinfo
 
-# test output
-test-results
-.test-output
-*.test.log
-
-# blunt framework
-.blunt
-.blunt-*
-
-# IntelliJ based IDEs
 .idea
+.vscode
+.claude
 
-# Finder (MacOS) folder config
 .DS_Store

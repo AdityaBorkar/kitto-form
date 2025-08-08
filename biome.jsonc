@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.0.0-beta.6/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.1.4/schema.json",
 	"assist": {
 		"actions": {
 			"source": {
@@ -33,32 +33,20 @@
 		"domains": {
 			"next": "none",
 			"project": "all",
-			"react": "all",
+			"react": "none",
 			"solid": "none",
-			"test": "all"
-			// "vue": "none"
+			"test": "all",
+			"vue": "none"
 		},
 		"rules": {
 			"a11y": "on",
 			"complexity": "on",
-			// "correctness": "on",
-			// "nursery": "on",
-			// "security": "on",
-			// "style": "on",
-			// "suspicious": "on",
-			"nursery": {
-				"recommended": false,
-				"useSortedClasses": {
-					"fix": "safe",
-					"level": "error",
-					"options": {
-						"attributes": ["classList"],
-						"functions": ["clsx", "cva", "tw", "tw.*"]
-					}
-				}
-			},
+			"correctness": "on",
 			"performance": "on",
-			"recommended": true
+			"recommended": true,
+			"security": "on",
+			"style": "on",
+			"suspicious": "on"
 		}
 	},
 	"vcs": {

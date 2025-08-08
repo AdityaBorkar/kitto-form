@@ -1,52 +1,58 @@
 import { KittoForm } from "./form.js";
-import { Variable } from "./variable.js";
 
-// Observable Variables
-const children = new Variable<number>(
-	'[name="children_count"]',
-	(value) => Number(value) || 0,
-);
-const is_register_for_parent = new Variable<boolean>(
-	'[name="register-for"]',
-	(value) => value.startsWith("Myself"),
-);
-
-// Event Listeners
-children.onChange((value) => {
-	renderForm(is_register_for_parent.get(), value);
-});
-is_register_for_parent.onChange((value) => {
-	renderForm(value, children.get());
-});
-
-// Form:
 const form = new KittoForm("#reg-form");
-function renderForm(is_register_for_parent: boolean, children: number) {
-	const elements = [];
 
-	// Always include the basic details
-	elements.push(".basic-details");
+form
+	.field("register_for")
+	.if((value) => value.startsWith("Myself"))
+	.render({
+		name: "parent",
+		show: ["@parent-details", "@preferred-details"],
+		slot: "parent-details-section",
+	});
 
-	// If the parent is selected, include the parent details
-	if (is_register_for_parent) {
-		elements.push({ "kitto-id": "parent-details", replacer: "parent" });
-		elements.push({ "kitto-id": "preferred-details", replacer: "parent" });
-	}
+form
+	.field("children_count")
+	.modify((value) => Number(value))
+	.if((value) => value > 0)
+	.repeat()
+	.render({
+		name: "child-$n",
+		show: ["@child-details", "@preferred-details"],
+		slot: "child-details-section",
+	});
 
-	// If the children are selected, include the children details
-	for (let index = 1; index <= children; index++) {
-		elements.push({ "kitto-id": "child-details", replacer: index });
-		elements.push({
-			"kitto-id": "preferred-details",
-			replacer: "child-" + index,
-		});
-	}
+// 	### 🎯 Minimal Builder API
 
-	// Push the recaptcha and submission buttons
-	elements.push(".reg-form_recaptcha", ".form_submission");
+// data-kitto="@parent-details"
 
-	form.render(elements);
-}
+// ```typescript
+// const form = new KittoForm('#reg-form')
 
-// Defaults:
-renderForm(is_register_for_parent.get(), children.get());
+// form
+//   .field('register_for')
+//   .if(value => value.startsWith('Myself'))
+//   .render({
+//     slot: "parent-details-section",
+//     show: ['@parent-details', '@preferred-details'],
+//     name: 'parent',
+//   })
+
+// form
+//   .field('children_count')
+//   .modify(value => Number(value))
+//   .if(value => value > 0)
+//   .repeat()
+//   .render({
+//     slot: "child-details-section",
+//     show: ['@child-details', '@preferred-details'],
+//     name: "child-$n",
+//   })
+// ```
+
+// <!-- TODO: Div: <div kitto-slot="parent-details-section"> -->
+// <!-- TODO: Wrap in <template kitto-component="@parent-details"> -->
+
+// Compile Time Validation:
+// 1. Kitto Component must start with `@`
+// 2. Kitto Component must be a <template> element

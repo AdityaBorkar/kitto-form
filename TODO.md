@@ -1,27 +1,15 @@
 # Kitto Form Library - Development TODO
 
+## Phase 0: Initial Setup
+
+- [ ] Copy the publishing workflow
+- [ ] Write .md files and docs
+- [ ] Auto-create REFERENCE.md from JSDOCs
+// TODO: Prevent Form Flashing and Excessive Re-renders by only updating the changed elements
+
 ## Phase 1: Core API Redesign (Priority: HIGH)
 
-### 🚀 Declarative Form Configuration
-- [ ] Replace imperative onChange handlers with declarative rule system
-- [ ] Create `FormConfig` interface for JSON-based form definitions
-- [ ] Implement rule engine for `when/then/show/hide` logic
-- [ ] Add support for complex conditions (AND/OR/NOT operators)
-- [ ] Example target API:
-  ```typescript
-  const form = new KittoForm('#form', {
-    fields: {
-      children_count: { type: 'number', default: 0 },
-      register_for: { type: 'select', options: ['parent', 'child'] }
-    },
-    rules: [
-      { when: 'children_count > 0', show: ['child-details'], repeat: 'children_count' },
-      { when: 'register_for = parent', show: ['parent-details'] }
-    ]
-  });
-  ```
-
-### 🔗 Fluent Chain API  
+### 🔗 Fluent Chain API
 - [ ] Design chainable API for form configuration
 - [ ] Implement `KittoForm.create(selector)` static factory method
 - [ ] Add `.field(name, type, options)` method
@@ -40,14 +28,6 @@
       .show('parent-details');
   ```
 
-### 🔧 Improved Variable System
-- [ ] Remove `@ts-expect-error` and improve type safety
-- [ ] Add built-in type converters (string, number, boolean, date)
-- [ ] Implement computed properties with dependency tracking
-- [ ] Add validation support directly to Variable class
-- [ ] Create `Variable.computed()` for derived values
-- [ ] Add `Variable.validate()` method with built-in rules
-
 ## Phase 2: Developer Experience (Priority: HIGH)
 
 ### ✅ Built-in Validation System
@@ -58,17 +38,17 @@
 - [ ] Create validation error display components
 - [ ] Example API:
   ```typescript
-  .field('email', 'email', { 
-    required: true, 
+  .field('email', 'email', {
+    required: true,
     validate: ['email'],
-    message: 'Please enter a valid email address' 
+    message: 'Please enter a valid email address'
   })
   ```
 
 ### 🎨 Simple Template System
 - [ ] Replace `kitto-id` with `data-component` attributes
 - [ ] Add template interpolation for dynamic values ({{variable}}, {{index}})
-- [ ] Create template cloning and variable replacement logic  
+- [ ] Create template cloning and variable replacement logic
 - [ ] Add conditional template rendering
 - [ ] Support nested templates and components
 - [ ] Example HTML:
@@ -80,7 +60,7 @@
 
 ### 🐛 Error Handling & Debugging
 - [ ] Add comprehensive error messages with context
-- [ ] Create debug mode with detailed logging  
+- [ ] Create debug mode with detailed logging
 - [ ] Add form state inspector for debugging
 - [ ] Implement validation error aggregation
 - [ ] Add development warnings for common mistakes
@@ -113,7 +93,7 @@
 
 ## Phase 4: Advanced Features (Priority: MEDIUM)
 
-### ⚡ Performance Optimization  
+### ⚡ Performance Optimization
 - [ ] Implement virtual DOM or efficient diff algorithm
 - [ ] Add component memoization to prevent unnecessary re-renders
 - [ ] Optimize change detection and event handling
@@ -143,7 +123,7 @@
 - [ ] Set up unit testing with Bun's built-in test runner
 - [ ] Add tests for Variable class functionality
 - [ ] Create tests for KittoForm rendering logic
-- [ ] Add validation testing suite  
+- [ ] Add validation testing suite
 - [ ] Create integration tests for complex scenarios
 - [ ] Add performance benchmarking tests
 
@@ -159,7 +139,7 @@
 
 ### 📦 Package Management
 - [ ] Optimize bundle size and tree-shaking
-- [ ] Create separate builds for different environments  
+- [ ] Create separate builds for different environments
 - [ ] Add CDN distribution support
 - [ ] Create npm package with proper versioning
 - [ ] Add changelog and release notes automation
@@ -188,7 +168,7 @@
 - [ ] TypeScript intellisense effectiveness
 - [ ] Error message clarity and actionability
 
-### Technical Metrics  
+### Technical Metrics
 - [ ] Bundle size optimization (target: <10KB gzipped)
 - [ ] Runtime performance benchmarks
 - [ ] Form rendering speed with large datasets
