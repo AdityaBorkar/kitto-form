@@ -1,0 +1,39 @@
+<html>
+
+<head>
+	<title>Kitto Form Example</title>
+</head>
+
+<body>
+	<form id="reg-form">
+		<input type="text" name="register_for" />
+		<input type="number" name="children_count" />
+	</form>
+	<script type="module">
+		import { KittoForm } from 'https://esm.run/kitto-form@0.1.0';
+
+		const form = new KittoForm("#reg-form");
+
+		form
+			.field("register_for")
+			.if((value) => value.startsWith("Myself"))
+			.render({
+				name: "parent",
+				show: ["@parent-details", "@preferred-details"],
+				slot: "parent-details-section",
+			});
+
+		form
+			.field("children_count")
+			.modify((value) => Number(value))
+			.if((value) => value > 0)
+			.repeat()
+			.render({
+				name: "child-$n",
+				show: ["@child-details", "@preferred-details"],
+				slot: "child-details-section",
+			});
+	</script>
+</body>
+
+</html>

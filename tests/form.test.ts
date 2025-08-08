@@ -9,16 +9,16 @@ test("KittoForm constructor", () => {
 });
 
 test("KittoForm field method", () => {
-	document.body.innerHTML = '<form id="test"><input id="field" value="test"></form>';
+	document.body.innerHTML = '<form id="test"><input name="field" value="test"></form>';
 	const form = new KittoForm("#test");
-	const builder = form.field("#field");
+	const builder = form.field("field");
 	expect(builder).toBeDefined();
 });
 
 test("KittoForm render with condition", () => {
 	document.body.innerHTML = `
 		<form id="test">
-			<input id="field" value="show">
+			<input name="field" value="show">
 			<div kitto-slot="test-slot"></div>
 			<template kitto-component="@test-comp">
 				<div>Content</div>
@@ -26,7 +26,7 @@ test("KittoForm render with condition", () => {
 		</form>
 	`;
 	const form = new KittoForm("#test");
-	form.field("#field")
+	form.field("field")
 		.if(val => val === "show")
 		.render({
 			slot: "test-slot",

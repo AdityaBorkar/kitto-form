@@ -19,18 +19,11 @@
 		"*.test.tsx": "typescriptreact"
 	},
 	"files.exclude": {
-		"**/.blunt": true,
-		"**/coverage": true,
-		"**/dist": true,
 		"**/node_modules": true,
-		"**/out": true
 	},
 	"search.exclude": {
-		"**/.blunt": true,
-		"**/coverage": true,
 		"**/dist": true,
 		"**/node_modules": true,
-		"**/out": true
 	},
 	"testing.automaticallyOpenPeekView": "never",
 	"testing.automaticallyOpenTestResults": "neverOpen",
