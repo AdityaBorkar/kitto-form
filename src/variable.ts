@@ -34,8 +34,19 @@ export class Variable<T> {
 
 	/** Gets the current value from the bound element */
 	get() {
-		const value = (this.element as HTMLInputElement).value;
-		return this.modifier(value);
+		const element = this.element as HTMLInputElement;
+		let raw: string;
+		// Special-case checkboxes to read their checked state rather than value
+		if (
+			element &&
+			typeof element.type === "string" &&
+			element.type === "checkbox"
+		) {
+			raw = element.checked ? "true" : "false";
+		} else {
+			raw = element.value as string;
+		}
+		return this.modifier(raw);
 	}
 
 	/** Sets the value of the bound element */
@@ -43,6 +54,8 @@ export class Variable<T> {
 		if ("value" in this.element) {
 			(this.element as HTMLInputElement).value = String(value);
 		}
+		// Propagate change so listeners react
+		this.element.dispatchEvent(new Event("change"));
 	}
 
 	/** Creates a computed variable that derives its value from dependencies */

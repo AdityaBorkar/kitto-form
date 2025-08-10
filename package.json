@@ -40,12 +40,12 @@
 		"commit": "bun run scripts/commit.ts",
 		"docs:generate": "typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts --readme none --hideGenerator --hideBreadcrumbs",
 		"prepare": "husky",
-		"release": "bun run build && changeset version && changeset publish",
+		"release": "bun run build && changeset && changeset version && changeset publish",
 		"test": "bun test"
 	},
 	"type": "module",
 	"types": "./dist/index.d.cts",
-	"version": "0.0.1",
+	"version": "0.0.8",
 	"zshy": {
 		"exports": {
 			".": "./src/index.ts"
