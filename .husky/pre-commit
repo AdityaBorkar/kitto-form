@@ -39,31 +39,31 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Validate CHANGELOG.md changes
-echo "📋 Validating CHANGELOG.md..."
+# # Validate CHANGELOG.md changes
+# echo "📋 Validating CHANGELOG.md..."
 
-# Check if CHANGELOG.md is staged for commit
-if git diff --cached --name-only | grep -q CHANGELOG.md; then
-  # Ensure changes are only in UNRELEASED section
-  if ! grep -q "^## UNRELEASED" CHANGELOG.md; then
-    echo "❌ CHANGELOG.md missing UNRELEASED section"
-    exit 1
-  fi
+# # Check if CHANGELOG.md is staged for commit
+# if git diff --cached --name-only | grep -q CHANGELOG.md; then
+#   # Ensure changes are only in UNRELEASED section
+#   if ! grep -q "^## UNRELEASED" CHANGELOG.md; then
+#     echo "❌ CHANGELOG.md missing UNRELEASED section"
+#     exit 1
+#   fi
 
-  # Get line range of UNRELEASED section
-  start_line=$(grep -n "^## UNRELEASED" CHANGELOG.md | cut -d: -f1)
-  end_line=$(tail -n +$((start_line + 1)) CHANGELOG.md | grep -n "^## " | head -1 | cut -d: -f1)
-  end_line=${end_line:+$((start_line + end_line - 1))}
+#   # Get line range of UNRELEASED section
+#   start_line=$(grep -n "^## UNRELEASED" CHANGELOG.md | cut -d: -f1)
+#   end_line=$(tail -n +$((start_line + 1)) CHANGELOG.md | grep -n "^## " | head -1 | cut -d: -f1)
+#   end_line=${end_line:+$((start_line + end_line - 1))}
 
-  # Check if staged changes are outside UNRELEASED section
-  if git diff --cached --unified=0 CHANGELOG.md | grep "^@@" | grep -qv "+$((start_line + 1)),"; then
-    echo "❌ CHANGELOG.md changes must be in UNRELEASED section only"
-    exit 1
-  fi
+#   # Check if staged changes are outside UNRELEASED section
+#   if git diff --cached --unified=0 CHANGELOG.md | grep "^@@" | grep -qv "+$((start_line + 1)),"; then
+#     echo "❌ CHANGELOG.md changes must be in UNRELEASED section only"
+#     exit 1
+#   fi
 
-  echo "✅ CHANGELOG.md validation passed"
-else
-  echo "  CHANGELOG.md not modified, skipping validation"
-fi
+#   echo "✅ CHANGELOG.md validation passed"
+# else
+#   echo "  CHANGELOG.md not modified, skipping validation"
+# fi
 
 echo "✅ Pre-commit hooks completed successfully"

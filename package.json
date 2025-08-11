@@ -45,7 +45,7 @@
 	},
 	"type": "module",
 	"types": "./dist/index.d.cts",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"zshy": {
 		"exports": {
 			".": "./src/index.ts"

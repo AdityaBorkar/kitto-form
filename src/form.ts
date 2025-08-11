@@ -1,5 +1,6 @@
-import { ComponentBuilder } from "./component-builder.js";
-import { DomElementHandle, SlotHandle } from "./element-handler.js";
+import { ComponentElement } from "./elements/component.js";
+import { DomElement } from "./elements/dom.js";
+import { SlotElement } from "./elements/slot.js";
 import { FieldBuilder } from "./field-builder.js";
 import { Variable } from "./variable.js";
 
@@ -12,6 +13,13 @@ export class KittoForm {
 			throw new Error(`form not found: ${selector}`);
 		}
 		this.form = element;
+		const components = this.form.querySelectorAll("[kitto-component]");
+		for (const component of components) {
+			// @ts-expect-error `style` is not typed.
+			component.setAttribute("default-display", component.style.display);
+			// @ts-expect-error `style` is not typed.
+			component.style.display = "none";
+		}
 	}
 
 	field<T = string>(name: string): FieldBuilder<T> {
@@ -28,22 +36,21 @@ export class KittoForm {
 			| HTMLSelectElement
 			| HTMLTextAreaElement;
 
-		// Identity transformer: leave value as string, special case for checkboxes handled in Variable.get
-		const identity = (v: string) => v;
-		const variable = new Variable(element, identity);
+		const transformer = (v: string) => v;
+		const variable = new Variable(element, transformer);
 		return new FieldBuilder<T>(variable);
 	}
 
-	slot(name: string): SlotHandle {
-		return new SlotHandle(this.form, name);
+	slot(name: string): SlotElement {
+		return new SlotElement(this.form, name);
 	}
 
-	element(component: `@${string}`): ComponentBuilder;
-	element(selector: string): DomElementHandle;
-	element(selectorOrToken: string): ComponentBuilder | DomElementHandle {
+	element(component: `@${string}`): ComponentElement;
+	element(selector: string): DomElement;
+	element(selectorOrToken: string): ComponentElement | DomElement {
 		if (selectorOrToken.startsWith("@")) {
-			return new ComponentBuilder(this.form, selectorOrToken as `@${string}`);
+			return new ComponentElement(this.form, selectorOrToken as `@${string}`);
 		}
-		return new DomElementHandle(this.form, selectorOrToken);
+		return new DomElement(this.form, selectorOrToken);
 	}
 }

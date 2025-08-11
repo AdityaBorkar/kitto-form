@@ -52,9 +52,8 @@ export class Variable<T> {
 	/** Sets the value of the bound element */
 	set(value: T) {
 		if ("value" in this.element) {
-			(this.element as HTMLInputElement).value = String(value);
+			this.element.value = String(value);
 		}
-		// Propagate change so listeners react
 		this.element.dispatchEvent(new Event("change"));
 	}
 

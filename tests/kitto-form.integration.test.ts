@@ -32,8 +32,9 @@ test("KittoForm integration: field-watch, slot append/clear, element show/hide, 
 		const slot = form.slot("parent-details-section");
 		if (value.startsWith("Myself")) {
 			form.field("children_count").set(0);
-			slot.append(form.element("@parent-details").params());
-			slot.append(form.element("@preferred-details").params("parent"));
+			const key = "parent";
+			slot.append(form.element("@parent-details").params({ key }));
+			slot.append(form.element("@preferred-details").params({ key }));
 		} else {
 			slot.hide();
 		}

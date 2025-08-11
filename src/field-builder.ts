@@ -1,18 +1,13 @@
 import type { Variable } from "./variable.js";
 
-type TransformFunction<I, O> = (value: I) => O;
-type UnknownTransformFunction = TransformFunction<unknown, unknown>;
+type TransformerFunction<I, O> = (value: I) => O;
 
 export class FieldBuilder<T> {
 	readonly variable: Variable<unknown>;
-	private readonly transforms: UnknownTransformFunction[];
+	private transformers: TransformerFunction<unknown, unknown>[] = [];
 
-	constructor(
-		variable: Variable<unknown>,
-		transforms: UnknownTransformFunction[] = [],
-	) {
+	constructor(variable: Variable<unknown>) {
 		this.variable = variable;
-		this.transforms = transforms;
 	}
 
 	set(value: T | string | number | boolean): this {
@@ -20,29 +15,24 @@ export class FieldBuilder<T> {
 		return this;
 	}
 
-	transform<U>(fn: TransformFunction<T, U>): FieldBuilder<U> {
-		return new FieldBuilder<U>(this.variable, [
-			...this.transforms,
-			fn as unknown as UnknownTransformFunction,
-		]);
-	}
-
-	watch(callback: (value: T) => void): this {
-		const run = () => {
-			const raw = this.variable.get() as unknown as T;
-			const value = this.applyTransforms(raw);
-			callback(value);
-		};
-		this.variable.onChange(run);
-		run();
+	transform<U>(fn: TransformerFunction<T, U>): this {
+		this.transformers.push(
+			fn as unknown as TransformerFunction<unknown, unknown>,
+		);
 		return this;
 	}
 
-	private applyTransforms(input: unknown): T {
-		let current: unknown = input;
-		for (const fn of this.transforms) {
-			current = (fn as (v: unknown) => unknown)(current);
-		}
-		return current as T;
+	watch(callback: (value: T) => void): this {
+		const logic = () => {
+			const raw = this.variable.get() as unknown as T;
+			const value = this.transformers.reduce(
+				(value, transformer) => transformer(value) as unknown as T,
+				raw,
+			);
+			callback(value);
+		};
+		this.variable.onChange(logic);
+		logic();
+		return this;
 	}
 }

@@ -4,7 +4,7 @@
 
 # Class: KittoForm
 
-Defined in: [form.ts:6](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22b744b7ae928f92486198c9797a6dc60ee/src/form.ts#L6)
+Defined in: [form.ts:7](https://github.com/AdityaBorkar/kitto-form/blob/8f3e13e64442fd68dccb50e7e04151988bc51e95/src/form.ts#L7)
 
 biome-ignore-all lint/performance/noBarrelFile: THIS IS A LIBRARY
 
@@ -14,7 +14,7 @@ biome-ignore-all lint/performance/noBarrelFile: THIS IS A LIBRARY
 
 > **new KittoForm**(`selector`): `KittoForm`
 
-Defined in: [form.ts:9](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22b744b7ae928f92486198c9797a6dc60ee/src/form.ts#L9)
+Defined in: [form.ts:10](https://github.com/AdityaBorkar/kitto-form/blob/8f3e13e64442fd68dccb50e7e04151988bc51e95/src/form.ts#L10)
 
 #### Parameters
 
@@ -32,9 +32,9 @@ Defined in: [form.ts:9](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22b
 
 #### Call Signature
 
-> **element**(`component`): `ComponentBuilder`
+> **element**(`component`): `ComponentElement`
 
-Defined in: [form.ts:41](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22b744b7ae928f92486198c9797a6dc60ee/src/form.ts#L41)
+Defined in: [form.ts:48](https://github.com/AdityaBorkar/kitto-form/blob/8f3e13e64442fd68dccb50e7e04151988bc51e95/src/form.ts#L48)
 
 ##### Parameters
 
@@ -44,13 +44,13 @@ Defined in: [form.ts:41](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22
 
 ##### Returns
 
-`ComponentBuilder`
+`ComponentElement`
 
 #### Call Signature
 
-> **element**(`selector`): `DomElementHandle`
+> **element**(`selector`): `DomElement`
 
-Defined in: [form.ts:42](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22b744b7ae928f92486198c9797a6dc60ee/src/form.ts#L42)
+Defined in: [form.ts:49](https://github.com/AdityaBorkar/kitto-form/blob/8f3e13e64442fd68dccb50e7e04151988bc51e95/src/form.ts#L49)
 
 ##### Parameters
 
@@ -60,7 +60,7 @@ Defined in: [form.ts:42](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22
 
 ##### Returns
 
-`DomElementHandle`
+`DomElement`
 
 ***
 
@@ -68,7 +68,7 @@ Defined in: [form.ts:42](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22
 
 > **field**\<`T`\>(`name`): `FieldBuilder`\<`T`\>
 
-Defined in: [form.ts:17](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22b744b7ae928f92486198c9797a6dc60ee/src/form.ts#L17)
+Defined in: [form.ts:25](https://github.com/AdityaBorkar/kitto-form/blob/8f3e13e64442fd68dccb50e7e04151988bc51e95/src/form.ts#L25)
 
 #### Type Parameters
 
@@ -90,9 +90,9 @@ Defined in: [form.ts:17](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22
 
 ### slot()
 
-> **slot**(`name`): `SlotHandle`
+> **slot**(`name`): `SlotElement`
 
-Defined in: [form.ts:37](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22b744b7ae928f92486198c9797a6dc60ee/src/form.ts#L37)
+Defined in: [form.ts:44](https://github.com/AdityaBorkar/kitto-form/blob/8f3e13e64442fd68dccb50e7e04151988bc51e95/src/form.ts#L44)
 
 #### Parameters
 
@@ -102,4 +102,4 @@ Defined in: [form.ts:37](https://github.com/AdityaBorkar/kitto-form/blob/88f3c22
 
 #### Returns
 
-`SlotHandle`
+`SlotElement`
